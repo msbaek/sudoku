@@ -1,6 +1,8 @@
 package com.example.sudoku;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.View;
@@ -32,5 +34,43 @@ public class PuzzleView extends View {
 
 	private void getRect(int x, int y, Rect rect) {
 		rect.set((int)(x * width), (int)(y * height), (int)(x * width + width), (int)(y * height + height));
+	}
+	
+	@Override
+	protected void onDraw(Canvas canvas) {
+		// 1. 배경 그리기(draw the background)
+		Paint background = new Paint();
+		background.setColor(getResources().getColor(R.color.puzzle_background));
+		canvas.drawRect(0,  0, getWidth(), getHeight(), background);
+		// 2. 게임판 그리기(draw the board)
+		// 2.1 격자 선의 색깔 정의하기(define colors for the grid lines)
+		Paint dark = new Paint();
+		dark.setColor(getResources().getColor(R.color.puzzle_dark));
+		
+		Paint hilite = new Paint();
+		hilite.setColor(getResources().getColor(R.color.puzzle_hilite));
+		
+		Paint light = new Paint();
+		light.setColor(getResources().getColor(R.color.puzzle_light));
+		// 2.2 세부적인 격자 선 그리기(draw the minor grid lines)
+		for(int i = 0; i < 9; i++) {
+			canvas.drawLine(0,  i * height,  getWidth(),  i * height, light);
+			canvas.drawLine(0,  i * height + 1,  getWidth(),  i * height + 1, hilite);
+			canvas.drawLine(i * width, 0,  i * width, getHeight(),  light);
+			canvas.drawLine(i * width + 1, 0,  i * width + 1, getHeight(),  hilite);
+		}
+		// 2.3 큰 격자 선 그리기(draw the major grid lines)
+		for(int i = 0; i < 9; i++) {
+			if(i % 3 != 0)
+				continue;
+			canvas.drawLine(0,  i * height,  getWidth(),  i * height, dark);
+			canvas.drawLine(0,  i * height + 1,  getWidth(),  i * height + 1, hilite);
+			canvas.drawLine(i * width, 0,  i * width, getHeight(),  dark);
+			canvas.drawLine(i * width + 1, 0,  i * width + 1, getHeight(),  hilite);
+		}
+		
+		// 3. 숫자 그리기(draw the numbers)
+		// 4. 힌트 그리기(draw the hints)
+		// 5. 선택 그리기(draw the selection)
 	}
 }

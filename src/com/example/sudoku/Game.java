@@ -29,10 +29,11 @@ public class Game extends Activity {
 	}
 
 	private void calculateUsedTiles() {
-		throw new RuntimeException("Game#calculateUsedTiles is not implemented yet !!!");
+		Log.d(TAG, "Game#calculateUsedTiles is not implemented yet !!!");
 	}
 
 	private int[] getPuzzle(int diff) {
-		throw new RuntimeException("Game#getPuzzle is not implemented yet !!!");
+		Log.d(TAG, "Game#getPuzzle is not implemented yet !!!");
+		return new int [9 * 9];
 	}
 }
