@@ -62,7 +62,9 @@ public class Sudoku extends Activity implements OnClickListener {
 
 	private void startGame(int which) {
 		Log.d(TAG, "clicked on " + which);
-		// start game here ...
+		Intent intent = new Intent(Sudoku.class, Game.class);
+		intent.putExtra(Game.KEY_DIFFICULTY, which);
+		startActivity(intent);
 	}
 						
 	@Override
