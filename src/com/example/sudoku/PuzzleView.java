@@ -70,6 +70,24 @@ public class PuzzleView extends View {
 		}
 		
 		// 3. 숫자 그리기(draw the numbers)
+        // 3.1 숫자에 쓸 색깔과 스타일 정의하기(Define color and style for numbers)
+        Paint foreground = new Paint(Paint.ANTI_ALIAS_FLAG);
+        foreground.setColor(getResources().getColor(R.color.puzzle_foreground));
+        foreground.setStyle(Paint.Style.FILL);
+        foreground.setTextSize(height * 0.75f);
+        foreground.setTextScaleX(width / height);
+        foreground.setTextAlign(Paint.Align.CENTER);
+        // 3.2 숫자를 칸의 중앙에 그리기(Draw the number in the center of the tile)
+        Paint.FontMetrics fm = foreground.getFontMetrics();
+        // 3.3 X축 중앙 정렬:정렬 사용(X를 중앙으로)(Centering in X:use alignment (and X at midpoint))
+        float x = width / 2;
+        // 3.4 Y축 중앙 정렬:폰트의 위 아래 높이를 먼저 측정(Centering in Y:measure ascent/descent first)
+        float y = height / 2 - (fm.ascent + fm.descent) / 2;
+        for(int i = 0; i < 9; i++) {
+            for(int j = 0; j < 9; j++) {
+                canvas.drawText(String.valueOf(this.game.getTileString(i, j)), i * width + x, j * height + y, foreground);
+            }
+        }
 		// 4. 힌트 그리기(draw the hints)
 		// 5. 선택 그리기(draw the selection)
 	}

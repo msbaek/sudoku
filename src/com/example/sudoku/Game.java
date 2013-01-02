@@ -36,4 +36,8 @@ public class Game extends Activity {
 		Log.d(TAG, "Game#getPuzzle is not implemented yet !!!");
 		return new int [9 * 9];
 	}
+
+    public int getTileString(int x, int y) {
+        return puzzle[y * 9 + x];
+    }
 }
