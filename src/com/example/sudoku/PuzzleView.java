@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 
 public class PuzzleView extends View {
@@ -95,4 +96,34 @@ public class PuzzleView extends View {
         canvas.drawRect(selRect, selected);
 		// 5. 선택 그리기(draw the selection)
 	}
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.d(TAG, "onKeyDown: keyCode=" + keyCode + ", event=" + event);
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_DPAD_UP:
+                select(selX, selY - 1);
+                break;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                select(selX, selY + 1);
+                break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                select(selX - 1, selY);
+                break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                select(selX + 1, selY);
+                break;
+            default:
+                return super.onKeyDown(keyCode, event);
+        }
+        return true;
+    }
+
+    private void select(int x, int y) {
+        invalidate(selRect);
+        selX = Math.min(Math.max(x, 0), 8);
+        selY = Math.min(Math.max(y, 0), 8);
+        getRect(selX, selY, selRect);
+        invalidate(selRect);
+    }
 }
