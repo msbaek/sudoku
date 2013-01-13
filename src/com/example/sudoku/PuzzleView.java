@@ -89,6 +89,10 @@ public class PuzzleView extends View {
             }
         }
 		// 4. 힌트 그리기(draw the hints)
+        Log.d(TAG, "selRect=" + selRect);
+        Paint selected = new Paint();
+        selected.setColor(getResources().getColor(R.color.puzzle_selected));
+        canvas.drawRect(selRect, selected);
 		// 5. 선택 그리기(draw the selection)
 	}
 }
