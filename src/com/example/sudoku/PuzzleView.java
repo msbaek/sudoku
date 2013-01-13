@@ -91,11 +91,29 @@ public class PuzzleView extends View {
             }
         }
 		// 4. 힌트 그리기(draw the hints)
+        // 남은 경우의 수에 따라 힌트 칼라 고르기(Pick a hint color based on #moves left)
+        Paint hint = new Paint();
+        int c[] = {
+                getResources().getColor(R.color.puzzle_hint_0),
+                getResources().getColor(R.color.puzzle_hint_1),
+                getResources().getColor(R.color.puzzle_hint_2),
+        };
+        Rect r = new Rect();
+        for(int i = 0; i < 9; i++) {
+            for(int j = 0; j < 9; j++) {
+                int movesLeft = 9 - game.getUsedTiles(i ,j).length;
+                if(movesLeft < c.length) {
+                    getRect(j, i, r);
+                    hint.setColor(c[movesLeft]);
+                    canvas.drawRect(r, hint);
+                }
+            }
+        }
+		// 5. 선택 그리기(draw the selection)
         Log.d(TAG, "selRect=" + selRect);
         Paint selected = new Paint();
         selected.setColor(getResources().getColor(R.color.puzzle_selected));
         canvas.drawRect(selRect, selected);
-		// 5. 선택 그리기(draw the selection)
 	}
 
     @Override

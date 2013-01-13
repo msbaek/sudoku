@@ -48,4 +48,8 @@ public class Game extends Activity {
     public boolean getTileIfValid(int selX, int selY, int tile) {
         return false;  //To change body of created methods use File | Settings | File Templates.
     }
+
+    public Object[] getUsedTiles(int i, int j) {
+        return new Object[0];  //To change body of created methods use File | Settings | File Templates.
+    }
 }
