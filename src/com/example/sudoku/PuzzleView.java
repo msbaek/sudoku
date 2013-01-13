@@ -113,10 +113,29 @@ public class PuzzleView extends View {
             case KeyEvent.KEYCODE_DPAD_RIGHT:
                 select(selX + 1, selY);
                 break;
+            case KeyEvent.KEYCODE_0:
+            case KeyEvent.KEYCODE_SPACE: setSelectedTile(0); break;
+            case KeyEvent.KEYCODE_1: setSelectedTile(1); break;
+            case KeyEvent.KEYCODE_2: setSelectedTile(2); break;
+            case KeyEvent.KEYCODE_3: setSelectedTile(3); break;
+            case KeyEvent.KEYCODE_4: setSelectedTile(4); break;
+            case KeyEvent.KEYCODE_5: setSelectedTile(5); break;
+            case KeyEvent.KEYCODE_6: setSelectedTile(6); break;
+            case KeyEvent.KEYCODE_7: setSelectedTile(7); break;
+            case KeyEvent.KEYCODE_8: setSelectedTile(8); break;
+            case KeyEvent.KEYCODE_9: setSelectedTile(9); break;
+            case KeyEvent.KEYCODE_ENTER:
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+                game.showKeypadOrError(selX, selY);
+                break;
             default:
                 return super.onKeyDown(keyCode, event);
         }
         return true;
+    }
+
+    private void setSelectedTile(int i) {
+        //To change body of created methods use File | Settings | File Templates.
     }
 
     private void select(int x, int y) {

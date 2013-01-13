@@ -40,4 +40,8 @@ public class Game extends Activity {
     public int getTileString(int x, int y) {
         return puzzle[y * 9 + x];
     }
+
+    public void showKeypadOrError(int selX, int selY) {
+        //To change body of created methods use File | Settings | File Templates.
+    }
 }
