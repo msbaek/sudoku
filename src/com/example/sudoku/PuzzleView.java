@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class PuzzleView extends View {
@@ -134,8 +135,14 @@ public class PuzzleView extends View {
         return true;
     }
 
-    private void setSelectedTile(int i) {
-        //To change body of created methods use File | Settings | File Templates.
+    private void setSelectedTile(int tile) {
+        if(game.getTileIfValid(selX, selY, tile)) {
+            invalidate(); // 힌트 변경(may change hints)
+        }
+        else  {
+            // 유효하지 않은 숫자(Number is not valid for this tile)
+            Log.d(TAG, "setSelectedTile: invalid: " + tile);
+        }
     }
 
     private void select(int x, int y) {
@@ -144,5 +151,16 @@ public class PuzzleView extends View {
         selY = Math.min(Math.max(y, 0), 8);
         getRect(selX, selY, selRect);
         invalidate(selRect);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if(event.getAction() != MotionEvent.ACTION_DOWN)
+            return super.onTouchEvent(event);
+
+        select((int)(event.getX() / width), (int)(event.getY() / height));
+        game.showKeypadOrError(selX, selY);
+        Log.d(TAG, "onTouchEvent: x " + selX + ", y " + selY);
+        return true;
     }
 }
